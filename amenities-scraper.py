@@ -26,31 +26,11 @@ print(response.text[:1000])
 html_soup = BeautifulSoup(response.text, 'html.parser')
 
 property_container = html_soup.find_all('div', class_="propertyNameRow clearfix")
-property = property_container[0]
-var_1 = property.find_all('h1', class_="propertyName")[0].text
+theProperty = property_container[0]
+var_1 = theProperty.find_all('h1', class_="propertyName")[0].text
 print(var_1)
 
 amenities_containers = html_soup.find_all('div', class_="js-viewAnalyticsSection")
 amenities = amenities_containers[0]
-amenities.find_all('li')
-var_2 = amenities.find_all('li')[2].text
-var_2 = var_2.replace('•','')
-print(var_2)
-
-    
-
-# =============================================================================
-# uses intertools to retrieve the digits and turn it into a float. Replace first 'str' with 'int' to make it an integar (number like rent price)
-# =============================================================================
-var_1= int(''.join(itertools.takewhile(str.isdigit, var_1)))
-print(var_1,type(var_1))
-# =============================================================================
-# setting up the lists that will form our dataframe with all the results
-# =============================================================================
-var_1
-            
-amenities.append(var_1)
-cols = ['Amenities']
-data = {'Amenities':amenities[var_1]}
-df = pd.DataFrame(data)
-corazon.to_excel('data_raw.xls')
+for link in amenities.find_all('li'):
+    print(link.get_text().replace('•',''))
